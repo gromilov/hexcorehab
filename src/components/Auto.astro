@@ -3,7 +3,7 @@
 
 ---
 
-<section id="automation-section">
+<section id="automation-section" class="automation-section">
   <div class="container">
     <div class="automation-wrapper">
     <div class="text-center relative">
@@ -315,12 +315,17 @@
 
 
 <style lang="scss" is:global>
+
 #automation-section {
   .container {
     width: 100%;
     max-width: var(--container-max);
-    margin: -64px auto;
-    padding:  0;
+    display: none;
+    @media (min-width: 768px) {
+      display: block;
+      margin: -64px auto;
+      padding:  0;
+    }
   }
   
   .automation-wrapper {

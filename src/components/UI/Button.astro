@@ -1,13 +1,21 @@
 ---
-const { variant = 'primary', children, openForm, className, hasBlur } = Astro.props;
+const { variant = 'primary', children, openForm, className, hasBlur, href = undefined } = Astro.props;
 ---
+{  !href ?  
+    <button class={`btn ${variant} ${hasBlur ? 'blur-btn' : ''} ${className}`}>
+      <slot>{children}</slot>
+    </button> 
+  :
+  <a href={href} class={`btn ${variant} ${hasBlur ? 'blur-btn' : ''} ${className}`}>
+    <slot>{children}</slot>
+  </a> 
 
-<button class={`btn ${variant} ${hasBlur ? 'blur-btn' : ''} ${className}`}>
-  <slot>{children}</slot>
-</button>
+
+}
 
 <style lang="scss" is:global>
 .btn {
+  display: inline-block;
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-full);
   font-family: var(--font-primary);
