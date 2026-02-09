@@ -1,0 +1,175 @@
+---
+import Icon from './UI/Icon.astro';
+const faqItems = [
+  {
+    question: "С какими задачами работаете?",
+    answer: "ИИ помогает сократить операционные затраты, ускорить процессы, уменьшить количество ручных задач и повысить точность решений. В итоге — больше эффективности при меньших ресурсах."
+  },
+  {
+    question: "Зачем моему бизнесу интегрировать ИИ?",
+    answer: "ИИ помогает сократить операционные затраты, ускорить процессы, уменьшить количество ручных задач и повысить точность решений. В итоге — больше эффективности при меньших ресурсах."
+  },
+  {
+    question: "Как проходит процесс внедрения?",
+    answer: "ИИ помогает сократить операционные затраты, ускорить процессы, уменьшить количество ручных задач и повысить точность решений. В итоге — больше эффективности при меньших ресурсах."
+  },
+  {
+    question: "Какие технологии вы используете?",
+    answer: "ИИ помогает сократить операционные затраты, ускорить процессы, уменьшить количество ручных задач и повысить точность решений. В итоге — больше эффективности при меньших ресурсах."
+  },
+  {
+    question: "Можно ли интегрировать ИИ в существующие системы?",
+    answer: "ИИ помогает сократить операционные затраты, ускорить процессы, уменьшить количество ручных задач и повысить точность решений. В итоге — больше эффективности при меньших ресурсах."
+  },
+
+  {
+    question: "Безопасно ли использовать ИИ?",
+    answer: "ИИ помогает сократить операционные затраты, ускорить процессы, уменьшить количество ручных задач и повысить точность решений. В итоге — больше эффективности при меньших ресурсах."
+  },
+  {
+    question: "Что такое AI-агент и чем он отличается от чат-бота?",
+    answer: "ИИ помогает сократить операционные затраты, ускорить процессы, уменьшить количество ручных задач и повысить точность решений. В итоге — больше эффективности при меньших ресурсах."
+  },
+  
+];
+---
+<style lang="scss" is:global>
+.faq-section {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 1rem 2.5rem;
+  
+  @media (min-width: 768px) {
+    padding: 2.5rem 1rem 5rem;
+  }
+}
+
+.faq-title {
+  font-size: var(--text-3xl);
+  text-align: center;
+  margin-bottom: 4rem;
+  font-weight: bold;
+  font-size: 2rem;
+  
+  
+  @media (min-width: 768px) {
+    font-size: var(--text-5xl);
+  }
+}
+
+.faq-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 860px;
+  
+  .faq-items-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.faq-item {
+  background-color: var(--color-light);
+  border-radius: var(--radius-3xl);
+  padding: 2rem 2rem ;
+  transition: all var(--transition-base);
+  
+  &[open] {
+    background-color: rgba(35, 35, 35, 0.9); // Slightly darker when open
+  }
+}
+
+.faq-summary {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.faq-toggle {
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  
+  .toggle-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .toggle-line-horizontal {
+      width: 0.75rem;
+      height: 0.125rem;
+      background-color: currentColor;
+    }
+    
+    .toggle-line-vertical {
+      width: 0.125rem;
+      height: 0.75rem;
+      background-color: currentColor;
+      position: absolute;
+      transition: transform var(--transition-base);
+    }
+  }
+}
+
+.faq-item[open] {
+  .toggle-line-vertical {
+    transform: rotate(90deg);
+    color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .toggle-line-horizontal {
+    color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.faq-question {
+  font-size: 1rem;
+  font-weight: var(--font-medium);
+  padding-left: 1.5rem;
+  color: var(--color-white);
+  
+  @media (min-width: 768px) {
+    font-size: 1.125rem;
+  }
+}
+
+.faq-answer {
+  margin-top: 1rem;
+  opacity: 0.6;
+  color: var(--color-white);
+  line-height: var(--leading-relaxed);
+}
+</style>
+
+<section class="faq-section">
+  <h2 class="faq-title">Часто задаваемые вопросы</h2>
+  
+  <div class="faq-container">
+    <div class="faq-items-wrapper">
+      {faqItems.map((item, index) => (
+        <details class="faq-item" key={index}>
+          <summary class="faq-summary">
+            <div class="faq-toggle">
+              <div class="toggle-inner">
+                <div class="toggle-line-horizontal"></div>
+                <div class="toggle-line-vertical"></div>
+              </div>
+            </div>
+            <h3 class="faq-question">{item.question}</h3>
+          </summary>
+          <p class="faq-answer">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

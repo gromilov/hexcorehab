@@ -1,0 +1,165 @@
+---
+const { className = '', id = 'form-modal' } = Astro.props;
+---
+
+<div
+  id={id}
+  class="modal-component pointer-events-none"
+  data-modal-id={id}
+  aria-hidden="true"
+  aria-modal="true"
+  role="dialog"
+>
+  <!-- Overlay -->
+  <div class="modal-overlay"></div>
+
+  <!-- Modal content с прокруткой -->
+  <div class="modal-content-wrapper">
+    <!-- Контент с прокруткой -->
+    <div class="modal-scroll-area">
+      <!-- Close button -->
+      <button
+        class="modal-close-btn"
+        aria-label="Закрыть"
+        data-modal-close={id}
+      >
+        <svg class="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Markdown контент -->
+      <div class="modal-prose-content">
+        <slot />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss" is:global>
+
+.opacity-0 {
+  opacity: 0;
+}
+.modal-component {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  transition: all 300ms;
+  
+  &.modal-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 1);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 36rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  color: black;
+  margin: var(--space-8) 0;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-scroll-area {
+  overflow-y: auto;
+  padding: var(--space-6);
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.modal-close-btn {
+  position: sticky;
+  top: 0;
+  float: right;
+  margin-bottom: var(--space-2);
+  color: #9ca3af;
+  transition: color 150ms;
+  background-color: white;
+  border-radius: 9999px;
+  padding: var(--space-1);
+  z-index: 20;
+  
+  &:hover {
+    color: #4b5563;
+  }
+}
+
+.close-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.modal-prose-content {
+  max-width: none;
+  clear: both;
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 2rem 0 1rem 0;
+    color: #2d3748;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+</style>
+

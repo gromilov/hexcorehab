@@ -1,0 +1,211 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-column footer-column-logo">
+        <img src="/images/Logo.svg" class="footer-logo" />
+        <a href="#" data-modal-id="privacy-policy" class="footer-link footer-link-privacy open-modal">
+          Политика конфиденциальности
+        </a>
+        <div class="footer-copyright">
+          © nexcorehub.ru 2025
+        </div>
+      </div>
+      
+      <div class="footer-column footer-column-menu">
+        <a href="#" data-modal-id="privacy-policy" class="footer-link">Услуги</a>
+        <a href="#" data-modal-id="privacy-policy" class="footer-link">Кейсы</a>
+        <a href="#" data-modal-id="privacy-policy" class="footer-link">Контакты</a>
+      </div>
+
+      <div class="footer-column footer-column-contacts">
+        <a href="#" class="footer-link footer-link-contact">+7 (800) 600-08-99</a>
+        <a href="#" class="footer-link footer-link-contact">info@armobile.net</a>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link">
+            <img src="/images/Telegram.svg" class="footer-social-icon" />
+          </a>
+          <a href="#" class="footer-social-link">
+            <img src="/images/WP.svg" class="footer-social-icon" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss" is:global>
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  @media (min-width: 768px) {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.footer-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-between;
+  align-items: start;
+  gap: 2rem;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+  }
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media (max-width: 767px) {
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  &-logo {
+    align-items: flex-start;
+
+    @media (max-width: 767px) {
+      align-items: center;
+      order: 1;
+    }
+  }
+
+  &-menu {
+    text-align: center;
+    gap: 1.5rem;
+
+    @media (max-width: 767px) {
+      order: 2;
+    }
+  }
+
+  &-contacts {
+    align-items: flex-end;
+    text-align: right;
+
+    @media (max-width: 767px) {
+      align-items: center;
+      text-align: center;
+      order: 3;
+    }
+  }
+}
+
+.footer-logo {
+  height: 2.25rem;
+  width: auto;
+}
+
+.footer-link {
+  color: var(--color-white);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &-privacy {
+    opacity: 0.8;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &-contact {
+    opacity: 1;
+  }
+}
+
+.footer-copyright {
+  font-size: 0.875rem;
+  opacity: 0.6;
+  margin-top: 0.5rem;
+}
+
+.footer-social {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+
+  @media (max-width: 767px) {
+    justify-content: center;
+  }
+}
+
+.footer-social-link {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.footer-social-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Мобильный адаптив */
+@media (max-width: 767px) {
+  .footer-content {
+    position: relative;
+    padding-bottom: 4rem;
+  }
+
+  .footer-copyright {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+  }
+
+  .footer-column-menu {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    
+    .footer-link {
+      white-space: nowrap;
+    }
+  }
+}
+
+/* Планшетный адаптив */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-content {
+    gap: 1.5rem;
+  }
+
+  .footer-social-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+</style>

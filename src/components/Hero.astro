@@ -1,0 +1,117 @@
+---
+import Button from './UI/Button.astro';
+---
+
+<section class="hero">
+  <div class="hero__container">
+    <div class="hero__content">
+      <h1 class="hero__title">
+        Разработка ИИ решений для бизнеса
+      </h1>
+      <p class="hero__description">
+        Автоматизируйте бизнес-процессы с помощью наших ИИ-агентов
+      </p>
+      <div class="hero__actions">
+        <Button className="open-form" >ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss" is:global>
+.hero {
+  position: relative;
+  min-height: var(--min-h-90vh);
+  @media (max-width: 767px) {
+    min-height: var(--min-h-70vh);
+  }
+  background-color: var(--color-dark);
+  background-image: url('/images/bg-hero.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20) var(--space-4);
+  
+  // Градиент overlay для лучшей читаемости текста
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0.4) 0%,
+      rgba(26, 26, 26, 0.6) 50%,
+      rgba(26, 26, 26, 0.8) 100%
+    );
+    z-index: 1;
+  }
+  
+  &__container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  
+  &__content {
+    text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  
+  &__title {
+    font-size: var(--text-7xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-white);
+    margin-bottom: var(--space-8);
+    
+    @media (max-width: 1024px) {
+      font-size: var(--text-5xl);
+    }
+    
+    @media (max-width: 768px) {
+      font-size: var(--text-3xl);
+      line-height: var(--leading-normal);
+    }
+    
+    @media (max-width: 480px) {
+      font-size: var(--text-3xl);
+    }
+  }
+  
+  &__description {
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-white-80);
+    margin-bottom: var(--space-12);
+    
+    @media (min-width: 768px) {
+      font-size: var(--text-xl);
+    }
+    
+    @media (max-width: 480px) {
+      font-size: var(--text-sm);
+    }
+  }
+  
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+</style>

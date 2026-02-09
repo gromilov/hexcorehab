@@ -1,0 +1,100 @@
+---
+import Icon from './UI/Icon.astro';
+const {
+  item = {},
+} = Astro.props;
+---
+<style lang="scss" is:global>
+.review-card {
+  background-color: var(--color-light);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-3xl);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.review-content {
+  padding: 1.5rem;
+  
+  .quote-icon-container {
+    padding: 1.5rem;
+    
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+.review-text {
+  color: var(--color-white);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  
+  @media (min-width: 768px) {
+    font-size: 1.25rem;
+  }
+}
+
+.review-author {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+  
+  .author-image {
+    width: 3rem;
+    height: 3rem;
+    min-width: 3rem;
+    min-height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    
+    .author-name {
+      font-size: 1.125rem;
+      color: var(--color-white);
+    }
+    
+    .author-position {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+</style>
+
+      
+<div class="review-card">
+  <div class="review-content">
+    <div class="quote-icon-container">
+      <img src="/images/QuoteIcon.svg" alt="Quote Icon" />
+    </div>
+    
+    <h3 class="review-text">{item.text}</h3>
+    <div class="review-author">
+      <img 
+        src={item.image} 
+        alt={item.name} 
+        class="author-image"
+        loading="lazy"
+      />
+
+      <div class="author-info">
+        <div class="author-name">
+          {item.name}
+        </div>
+        <div class="author-position">
+          {item.position}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+     
+

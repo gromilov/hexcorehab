@@ -1,0 +1,342 @@
+---
+// components/StagesOfWork.astro
+
+const stages = [
+  {
+    number: 1,
+    title: "Подготовка коммерческого предложения",
+    text: "На этом этапе проводится детальный сбор требований заказчика, формируется техническое задание (ТЗ), декомпозируются задачи и оцениваются трудозатраты."
+  },
+  {
+    number: 2,
+    title: "Исследование и разработка",
+    text: "На этом этапе проводится детальный сбор требований заказчика, формируется техническое задание (ТЗ), декомпозируются задачи и оцениваются трудозатраты."
+  },
+  {
+    number: 3,
+    title: "Тестирование",
+    text: "На этапе тестирования проводится испытания на основе заранее зафиксированных тестовых данных и критериев приемки."
+  },
+  {
+    number: 4,
+    title: "Внедрение",
+    text: "Перед внедрением команда инспектирует инфраструктуру заказчика. Решение внедряется в контейнеризированной среде для оперативной интеграции."
+  }
+];
+---
+
+<style lang="scss" is:global>
+.stages-section {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 1rem 2.5rem;
+  padding-top: 5rem;
+  max-width: var(--container-max);
+  
+  @media (min-width: 768px) {
+    padding: 1rem 1rem 2.5rem;
+    padding-top: var(--space-20); // 10rem
+  }
+}
+
+.stages-header {
+  // margin-bottom: 3rem;
+  
+  // @media (min-width: 768px) {
+  //   margin-bottom: 4rem;
+  // }
+}
+
+.stages-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  @media (min-width: 768px) {
+    font-size: var(--text-3xl);
+  }
+}
+
+.stages-container {
+  position: relative;
+}
+
+.stage-item {
+  position: relative;
+  padding-bottom: 3rem;
+  
+  &:last-child {
+    padding-bottom: 0;
+  }
+  
+  @media (min-width: 768px) {
+    padding-bottom: 5rem;
+    
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.desktop-stage {
+  display: none;
+  
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.text-content {
+  width: 50%;
+  
+  .text-content-inner {
+    max-width: 36rem;
+    padding: 1.5rem;
+  }
+}
+
+.stages-number {
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
+  
+  .number-circle {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    z-index: 10;
+  }
+}
+
+.number-circle-inner {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background-color: var(--color-dark);
+  border: 2px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  .number-text {
+    color: var(--color-white);
+    font-weight: var(--font-bold);
+    font-size: 1.125rem;
+  }
+}
+
+.spacer {
+  width: 50%;
+}
+
+.mobile-stage {
+  display: flex;
+  
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.mobile-number-container {
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  width: 3rem;
+  height: 3rem;
+}
+
+.mobile-content {
+  flex: 1;
+}
+
+.mobile-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-semibold);
+  margin-bottom: 1rem;
+}
+
+.mobile-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: var(--leading-relaxed);
+}
+
+.desktop-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-semibold);
+  margin-bottom: 1rem;
+  
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+.desktop-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: var(--leading-relaxed);
+}
+
+/* Порядок элементов для десктопной версии */
+.stage-item:nth-child(odd) .desktop-stage .text-content {
+  display: flex;
+  order: 3;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.stage-item:nth-child(odd) .desktop-stage .stages-number {
+  order: 2;
+}
+
+.stage-item:nth-child(odd) .desktop-stage .spacer {
+  order: 1;
+}
+
+.stage-item:nth-child(even) .desktop-stage .spacer {
+  order: 3;
+}
+
+.stage-item:nth-child(even) .desktop-stage .stages-number {
+  order: 2;
+}
+
+.stage-item:nth-child(even) .desktop-stage .text-content {
+  display: flex;
+  justify-content: flex-end;
+  order: 1;
+  text-align: right;
+}
+
+/* Вертикальные линии - только для десктопной версии */
+.stages-number {
+  position: relative;
+  
+  @media (min-width: 768px) {
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      width: 1px;
+      height: 500px;
+      background-color: var(--color-accent);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 4px;
+      width: 1px;
+      height: 500px;
+      background-color: var(--color-accent);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+  }
+}
+
+.stage-item:first-child .stages-number::before {
+  display: none;
+}
+
+.stage-item:last-child .stages-number::after {
+  display: none;
+}
+
+/* Ховер-эффекты */
+.stage-item {
+  overflow: hidden;
+  
+  &:hover {
+    .group-hover-bg-accent {
+      background-color: var(--color-accent);
+    }
+    
+    .group-hover-border-accent {
+      border-color: var(--color-accent);
+    }
+    
+    .bg-dark {
+      /* transform: scale(1.1);
+      transition: transform 0.3s ease; */
+    }
+  }
+}
+</style>
+
+<section class="stages-section">
+  <!-- Заголовок -->
+  <div class="stages-header">
+    <h1 class="stages-title">Этапы работы с нами</h1>
+  </div>
+  
+  <!-- Timeline блоки -->
+  <div class="stages-container">
+    {stages.map((stage, index) => (
+      <div 
+        class="stage-item"
+        key={index}
+        data-index={index}
+      >
+        <!-- Десктопная версия с 3 колонками -->
+        <div class="desktop-stage">
+          
+          <!-- Текстовый контент -->
+          <div class="text-content">
+            <div class="text-content-inner">
+              <h3 class="desktop-title">
+                {stage.title}
+              </h3>
+              <p class="desktop-text">
+                {stage.text}
+              </p>
+            </div>
+          </div>
+          
+          <!-- Центральная колонка (номер) -->
+          <div class="stages-number">
+            <div class="number-circle">
+              <div class="number-circle-inner">
+                <span class="number-text">{stage.number}</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Пустая колонка для баланса -->
+          <div class="spacer"></div>
+        </div>
+        
+        <!-- Мобильная версия -->
+        <div class="mobile-stage">
+          <!-- Номер слева -->
+          <div class="mobile-number-container">
+            <div class="number-circle-inner">
+              <span class="number-text">{stage.number}</span>
+            </div>
+          </div>
+          
+          <!-- Контент справа -->
+          <div class="mobile-content">
+            <div>
+              <h3 class="mobile-title">
+                {stage.title}
+              </h3>
+              <p class="mobile-text">
+                {stage.text}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,271 @@
+---
+import Icon from './UI/Icon.astro';
+import Button from './UI/Button.astro';
+
+const { item = {} } = Astro.props;
+
+// Преобразуем данные из SVG в структуру для компонента
+const caseData = {
+  title: "Внедрение системы ИИ-агентов на производственном предприятии",
+  tags: ["Автоматизация", "Производство", "ИИ-агенты"],
+  text: "Клиент — среднее производственное предприятие в области металлообработки. Сотрудники промышленных лизировщиков, частными металлургическими предприятиями оборудования массивного деревообрабатывающего цеха. В отличие от других компаний, Русией сборка данных и ремонтов утраченные металлы вели к потерям времени, перерасходу ресурсов и срыву сроков заказов.",
+  results: [
+    { value: "45%", postfix: "", text: "Снижение издержек при реализации новых процессов" },
+    { value: "+18%", postfix: "", text: "Всего общий эффективный объем производства (изв.)" },
+    { value: "-25", postfix: "ч/нед", text: "Всего общий эффективный объем производства (изв.)" },
+    { value: "-15%", postfix: "", text: "Снижение затрат на производство" },
+    { value: "3", postfix: "случая", text: "Предварительные затраты на производство и первый месяц" },
+    { value: "-32%", postfix: "", text: "Сокращение времени запуска новых заводов в производство" }
+  ],
+  details: {
+    background: "Клиент — среднее производственное предприятие в области металлообработки. Сотрудники промышленных лизировщиков, частными металлургическими предприятиями оборудования массивного деревообрабатывающего цеха. В отличие от других компаний, Русией сборка данных и ремонтов утраченные металлы вели к потерям времени, перерасходу ресурсов и срыву сроков заказов.",
+    task: "Автоматизировать процессы мониторинга, планирования и защиты для передачи от реактивного к прецизионному и проактивному управлению производством.",
+    solution: {
+      title: "Елена внедрена хосписная автоматизирующая ИИ-агентов:",
+      items: [
+        "Агент мониторинга оборудования. В режиме 24/7 анализировал данные с датчиков станков (инфраструктура, температура, нагрузка). Выявил аномалии и прогнозировал вероятность выхода узла из строя.",
+        "Агент планирования и диспетчеризации. На основе данных от агента мониторинга, текущих запасов и наличия сырья автоматически корректировал производительный график, перепланировал задачи между станками, формировал и отправлял записи на технологические.",
+        "Агент логистики сырья. Контролировал остаток заготовок и полуфабрикатов. Автоматически формировал задания для внутрицехового транспорта, оптимизировал маршруты, чтобы обеспечить стабильный контроль качества и минимум износа изделий."
+      ]
+    },
+    howItWorks: "Агенты действовали автономно, но синхронизировались. Например, при обнаружении 'автономной мониторинге' признаков скорой поломки фрезерного станка, 'агент планирования' мгновенно перезагружался его задачи на другие доступные станки, а 'агент логистики' обеспечивал доставку материала к новым точкам обработки. Руководитель цеха получал уведомление о ситуации и готовом плане действий, а не сырье данные.",
+    results: [
+      "Снижение издержек при реализации новых процессов",
+      "Снижение затрат на производство",
+      "Соблюдение 25 часов в неделю у мастеров и менеджеров",
+      "Сохранение логистических издержек на 15%",
+      "Предотвращение аварии кабелей сервисных финансовых потерь и простоев"
+    ]
+  }
+};
+
+
+
+---
+
+<style lang="scss" is:global>
+.case-page {
+  
+  border-radius: var(--radius-xl);
+  padding: 1rem;
+  color: var(--color-white);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  max-width: 860px;
+
+  &-title {
+    font-size: var(--text-3xl);
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    @media (min-width: 760px) {
+        font-size: var(--text-5xl);
+    }
+  }
+
+  &-tags-container {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  &-tag {
+    background-color: rgba(255, 255, 255, 0.05);
+    font-size: 0.875rem;
+    border-radius: var(--radius-xl);
+    padding: 0.5rem 1rem;
+    color: var(--color-white);
+  }
+
+  &-section {
+    margin-bottom: 2.5rem;
+
+    &-title {
+      font-size: 1.5rem;
+      font-weight: var(--font-medium);
+      margin-bottom: 1rem;
+    //   color: var(--color-accent);
+    }
+
+    &-text {
+      font-size: 1.125rem;
+      line-height: var(--leading-relaxed);
+      opacity: 0.8;
+    }
+  }
+
+  &-solution-list {
+    // list-style-type: none;
+    padding-left: 0;
+  }
+
+  &-solution-item {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+    
+    &:before {
+      content: "•";
+      color: var(--color-accent);
+      font-size: 1.5rem;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  &-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  &-result-item {
+    // background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    // padding: 1.5rem;
+    
+    .case-page-result-value-container {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .case-page-result-value {
+      font-size: 2.5rem;
+    //   color: var(--color-accent);
+      font-weight: var(--font-bold);
+    }
+    
+    .case-page-result-postfix {
+      font-size: 1.5rem;
+    //   color: var(--color-accent);
+      font-weight: var(--font-bold);
+    }
+    
+    .case-page-result-description {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+  }
+
+  &-results-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  &-results-list-item {
+  margin-bottom: 0.75rem;
+  padding-left: 2rem;
+  position: relative;
+  
+  &:before {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg width='18' height='20' viewBox='0 0 18 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.9502 0C8.9502 5.52267 12.9576 9.99972 17.9004 10C12.9576 10.0003 8.9502 14.4773 8.9502 20H8.94922C8.94922 14.4774 4.94276 10.0004 0 10C4.94276 9.99963 8.94922 5.52262 8.94922 0H8.9502Z' fill='%23FFB251'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 16px;
+    height: 18px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+  }
+}
+
+  &-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    // color: var(--color-accent);
+    text-decoration: none;
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    // border: 1px solid var(--color-accent);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s ease;
+    
+    &:hover {
+    //   background-color: rgba(var(--color-accent-rgb), 0.1);
+      transform: translateY(-2px);
+    }
+    
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+</style>
+
+<div class="case-page">
+  <h1 class="case-page-title">{caseData.title}</h1>
+  
+  <div class="case-page-tags-container">
+    {caseData.tags.map((tag) => (
+      <span class="case-page-tag">{tag}</span>
+    ))}
+  </div>
+
+  <div class="case-page-section">
+    <h2 class="case-page-section-title">Ключевые результаты</h2>
+    <div class="case-page-results-grid">
+      {caseData.results.map((result) => (
+        <div class="case-page-result-item">
+          <div class="case-page-result-value-container">
+            <span class="case-page-result-value">{result.value}</span>
+            {result.postfix && <span class="case-page-result-postfix">{result.postfix}</span>}
+          </div>
+          <div class="case-page-result-description">
+            {result.text}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="case-page-section">
+    <h2 class="case-page-section-title">Предыстория</h2>
+    <p class="case-page-section-text">{caseData.details.background}</p>
+  </div>
+
+  <div class="case-page-section">
+    <h2 class="case-page-section-title">Задача</h2>
+    <p class="case-page-section-text">{caseData.details.task}</p>
+  </div>
+
+  <div class="case-page-section">
+    <h2 class="case-page-section-title">Решение</h2>
+    <p class="case-page-section-text">{caseData.details.solution.title}</p>
+    <ol class="case-page-solution-list">
+      {caseData.details.solution.items.map((item) => (
+        <li class="case-page-solution-item">
+          <p class="case-page-section-text">{item}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <div class="case-page-section">
+    <h2 class="case-page-section-title">Как это работает</h2>
+    <p class="case-page-section-text">{caseData.details.howItWorks}</p>
+  </div>
+
+  
+
+  <div class="case-page-section">
+    <h2 class="case-page-section-title" onClick="let a = Number('hello'); let b = a; console.log(a == b)">Результаты</h2>
+    <ul class="case-page-results-list">
+      {caseData.details.results.map((result) => (
+        <li class="case-page-results-list-item">
+          <p class="case-page-section-text">{result}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
