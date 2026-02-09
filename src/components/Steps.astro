@@ -36,16 +36,16 @@ const stages = [
   
   @media (min-width: 768px) {
     padding: 1rem 1rem 2.5rem;
-    padding-top: var(--space-20); // 10rem
+    padding-top: var(--space-20);
   }
 }
 
 .stages-header {
-  // margin-bottom: 3rem;
+  margin-bottom: 3rem;
   
-  // @media (min-width: 768px) {
-  //   margin-bottom: 4rem;
-  // }
+  @media (min-width: 768px) {
+    margin-bottom: 4rem;
+  }
 }
 
 .stages-title {
@@ -53,6 +53,7 @@ const stages = [
   font-weight: var(--font-bold);
   margin-bottom: 1.5rem;
   text-align: center;
+  
   @media (min-width: 768px) {
     font-size: var(--text-3xl);
   }
@@ -60,6 +61,68 @@ const stages = [
 
 .stages-container {
   position: relative;
+}
+
+/* Центральная анимированная линия - только для десктопа */
+.timeline-line-container {
+  display: none;
+  
+  @media (min-width: 768px) {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    width: 2px;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+}
+
+.timeline-line-bg {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.timeline-line-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent-light, var(--color-accent)) 100%);
+  height: 0%;
+  will-change: height;
+  box-shadow: 0 0 10px var(--color-accent), 0 0 30px rgba(var(--color-accent-rgb), 0.5);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+  }
+  
+  &.is-complete::after {
+    animation: pulse-end 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-end {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.5);
+    opacity: 0.7;
+  }
 }
 
 .stage-item {
@@ -91,6 +154,22 @@ const stages = [
 
 .text-content {
   width: 50%;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .stage-item:nth-child(even) & {
+    transform: translateX(30px);
+    
+    &.is-visible {
+      transform: translateX(0);
+    }
+  }
   
   .text-content-inner {
     max-width: 36rem;
@@ -102,6 +181,7 @@ const stages = [
   height: 100%;
   flex-shrink: 0;
   position: relative;
+  z-index: 10;
   
   .number-circle {
     width: 3rem;
@@ -116,16 +196,65 @@ const stages = [
   height: 3rem;
   border-radius: 9999px;
   background-color: var(--color-dark);
-  border: 2px solid var(--color-accent);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+  }
+  
+  &.is-active {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    box-shadow: 0 0 20px var(--color-accent), 0 0 40px rgba(var(--color-accent-rgb), 0.4);
+    transform: scale(1.15);
+    
+    &::before {
+      border-color: rgba(var(--color-accent-rgb), 0.5);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+  }
+  
+  &.is-past {
+    border-color: var(--color-accent);
+    background-color: rgba(var(--color-dark-rgb), 1);
+    
+    .number-text {
+      color: var(--color-accent);
+    }
+  }
   
   .number-text {
     color: var(--color-white);
     font-weight: var(--font-bold);
     font-size: 1.125rem;
+    transition: color 0.3s ease;
+  }
+  
+  &.is-active .number-text {
+    color: var(--color-dark);
+    font-weight: 800;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
   }
 }
 
@@ -213,130 +342,285 @@ const stages = [
   text-align: right;
 }
 
-/* Вертикальные линии - только для десктопной версии */
-.stages-number {
-  position: relative;
+/* Мобильная линия */
+.mobile-line {
+  position: absolute;
+  left: 1.5rem;
+  top: 3rem;
+  width: 2px;
+  height: calc(100% - 3rem);
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 1;
   
   @media (min-width: 768px) {
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: 4px;
-      width: 1px;
-      height: 500px;
-      background-color: var(--color-accent);
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-    
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 4px;
-      width: 1px;
-      height: 500px;
-      background-color: var(--color-accent);
-      transform: translateX(-50%);
-      z-index: 1;
-    }
+    display: none;
   }
-}
-
-.stage-item:first-child .stages-number::before {
-  display: none;
-}
-
-.stage-item:last-child .stages-number::after {
-  display: none;
-}
-
-/* Ховер-эффекты */
-.stage-item {
-  overflow: hidden;
   
-  &:hover {
-    .group-hover-bg-accent {
-      background-color: var(--color-accent);
-    }
-    
-    .group-hover-border-accent {
-      border-color: var(--color-accent);
-    }
-    
-    .bg-dark {
-      /* transform: scale(1.1);
-      transition: transform 0.3s ease; */
-    }
+  .mobile-line-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-accent);
+    height: 0%;
+    will-change: height;
+    box-shadow: 0 0 8px var(--color-accent);
   }
+}
+
+.stage-item:last-child .mobile-line {
+  display: none;
 }
 </style>
 
-<section class="stages-section">
-  <!-- Заголовок -->
+<section class="stages-section" id="stages-section">
   <div class="stages-header">
-    <h1 class="stages-title">Этапы работы с нами</h1>
+    <h2 class="stages-title">Этапы работы с нами</h2>
   </div>
   
-  <!-- Timeline блоки -->
   <div class="stages-container">
+    <!-- Центральная анимированная линия -->
+    <div class="timeline-line-container">
+      <div class="timeline-line-bg"></div>
+      <div class="timeline-line-progress" id="timeline-progress"></div>
+    </div>
+    
     {stages.map((stage, index) => (
-      <div 
-        class="stage-item"
-        key={index}
-        data-index={index}
-      >
-        <!-- Десктопная версия с 3 колонками -->
+      <div class="stage-item" data-index={index}>
+        <!-- Мобильная линия -->
+        <div class="mobile-line">
+          <div class="mobile-line-progress" data-line-index={index}></div>
+        </div>
+        
         <div class="desktop-stage">
-          
-          <!-- Текстовый контент -->
-          <div class="text-content">
+          <div class="text-content" data-content={index}>
             <div class="text-content-inner">
-              <h3 class="desktop-title">
-                {stage.title}
-              </h3>
-              <p class="desktop-text">
-                {stage.text}
-              </p>
+              <h3 class="desktop-title">{stage.title}</h3>
+              <p class="desktop-text">{stage.text}</p>
             </div>
           </div>
           
-          <!-- Центральная колонка (номер) -->
           <div class="stages-number">
             <div class="number-circle">
-              <div class="number-circle-inner">
+              <div class="number-circle-inner" data-circle={index}>
                 <span class="number-text">{stage.number}</span>
               </div>
             </div>
           </div>
           
-          <!-- Пустая колонка для баланса -->
           <div class="spacer"></div>
         </div>
         
-        <!-- Мобильная версия -->
         <div class="mobile-stage">
-          <!-- Номер слева -->
           <div class="mobile-number-container">
-            <div class="number-circle-inner">
+            <div class="number-circle-inner" data-circle-mobile={index}>
               <span class="number-text">{stage.number}</span>
             </div>
           </div>
           
-          <!-- Контент справа -->
           <div class="mobile-content">
-            <div>
-              <h3 class="mobile-title">
-                {stage.title}
-              </h3>
-              <p class="mobile-text">
-                {stage.text}
-              </p>
-            </div>
+            <h3 class="mobile-title">{stage.title}</h3>
+            <p class="mobile-text">{stage.text}</p>
           </div>
         </div>
       </div>
     ))}
   </div>
 </section>
+
+<script>
+  (function() {
+    'use strict';
+    
+    const section = document.getElementById('stages-section');
+    const timelineProgress = document.getElementById('timeline-progress');
+    const circles = document.querySelectorAll('[data-circle]');
+    const circlesMobile = document.querySelectorAll('[data-circle-mobile]');
+    const contents = document.querySelectorAll('[data-content]');
+    const mobileLines = document.querySelectorAll('[data-line-index]');
+    
+    if (!section || !timelineProgress || circles.length === 0) return;
+    
+    let circlePositions = [];
+    let sectionHeight = 0;
+    let isActive = false;
+    let isComplete = false;
+    let rafId = null;
+    
+    // Вычисляем позиции кругов
+    const calculatePositions = () => {
+      const sectionRect = section.getBoundingClientRect();
+      sectionHeight = sectionRect.height;
+      circlePositions = [];
+      
+      circles.forEach((circle) => {
+        const rect = circle.getBoundingClientRect();
+        const relativeTop = rect.top - sectionRect.top + rect.height / 2;
+        circlePositions.push(relativeTop);
+      });
+    };
+    
+    // Основная функция обновления анимации
+    const updateAnimation = () => {
+      if (isComplete) return;
+      
+      const sectionRect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // НОВАЯ ЛОГИКА: Анимируем от момента, когда верх секции появляется внизу экрана
+      // до момента, когда низ секции появляется вверху экрана
+      // Но с коэффициентом замедления, чтобы линия доходила до конца только при полной видимости
+      
+      // Старт: когда верх секции входит в нижнюю треть экрана
+      const startTrigger = windowHeight * 0.7;
+      // Конец: когда низ секции выходит из верхней трети экрана
+      const endTrigger = windowHeight * 0.4;
+      
+      // Текущая позиция верха секции
+      const sectionTop = sectionRect.top;
+      
+      // Прогресс от 0 до 1
+      let progress = (startTrigger - sectionTop) / (sectionHeight + startTrigger - endTrigger);
+      progress = Math.max(0, Math.min(1, progress));
+      
+      // Высота линии от первого до последнего круга
+      const firstCircle = circlePositions[0];
+      const lastCircle = circlePositions[circlePositions.length - 1];
+      const totalLineLength = lastCircle - firstCircle;
+      
+      // Текущая позиция линии с учетом прогресса
+      const currentLinePos = progress * totalLineLength;
+      const linePercent = Math.max(0, Math.min(100, (currentLinePos / totalLineLength) * 100));
+      
+      // Применяем высоту линии
+      timelineProgress.style.height = `${linePercent}%`;
+      
+      // Проверяем завершение (100% с небольшим допуском)
+      if (linePercent >= 99.5) {
+        isComplete = true;
+        timelineProgress.classList.add('is-complete');
+        timelineProgress.style.height = '100%';
+        
+        // Активируем последний круг и останавливаемся
+        const lastIndex = circles.length - 1;
+        circles[lastIndex].classList.add('is-active');
+        circlesMobile[lastIndex]?.classList.add('is-active');
+        contents[lastIndex]?.classList.add('is-visible');
+        
+        // Отключаем обработчик скролла
+        window.removeEventListener('scroll', onScroll);
+        return;
+      }
+      
+      // Обновляем мобильные линии
+      mobileLines.forEach((line, index) => {
+        if (index >= mobileLines.length - 1) return;
+        
+        const itemStart = circlePositions[index] - firstCircle;
+        const itemEnd = circlePositions[index + 1] - firstCircle;
+        const itemLength = itemEnd - itemStart;
+        
+        const itemProgress = (currentLinePos - itemStart) / itemLength;
+        const clampedItemProgress = Math.max(0, Math.min(1, itemProgress));
+        
+        line.style.height = `${clampedItemProgress * 100}%`;
+      });
+      
+      // Активируем круги
+      circles.forEach((circle, index) => {
+        const circlePos = circlePositions[index] - firstCircle;
+        const activationPoint = (circlePos / totalLineLength) * 100;
+        
+        // Круг активен когда линия прошла 70% пути к нему
+        const isCircleActive = linePercent >= activationPoint - 15;
+        const isCirclePast = linePercent >= activationPoint + 25;
+        
+        // Сбрасываем классы
+        circle.classList.remove('is-active', 'is-past');
+        circlesMobile[index]?.classList.remove('is-active', 'is-past');
+        
+        if (isCircleActive) {
+          circle.classList.add('is-active');
+          circlesMobile[index]?.classList.add('is-active');
+          
+          // Показываем контент
+          if (contents[index]) {
+            contents[index].classList.add('is-visible');
+          }
+          
+          // Если прошли дальше, меняем на "past" (кроме последнего)
+          if (isCirclePast && index < circles.length - 1) {
+            circle.classList.remove('is-active');
+            circle.classList.add('is-past');
+            circlesMobile[index]?.classList.remove('is-active');
+            circlesMobile[index]?.classList.add('is-past');
+          }
+        }
+      });
+    };
+    
+    // Обработчик скролла с requestAnimationFrame
+    const onScroll = () => {
+      if (!isActive || isComplete) return;
+      
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      
+      rafId = requestAnimationFrame(() => {
+        updateAnimation();
+        rafId = null;
+      });
+    };
+    
+    // Intersection Observer для включения/выключения
+    const observerOptions = {
+      root: null,
+      rootMargin: '20% 0px 20% 0px',
+      threshold: 0
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !isComplete) {
+          if (!isActive) {
+            isActive = true;
+            calculatePositions();
+            updateAnimation();
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', calculatePositions, { passive: true });
+          }
+        } else if (!entry.isIntersecting && !isComplete) {
+          // Не отключаем полностью, только если ушли далеко
+          const rect = section.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > window.innerHeight) {
+            isActive = false;
+            window.removeEventListener('scroll', onScroll);
+          }
+        }
+      });
+    }, observerOptions);
+    
+    // Инициализация
+    calculatePositions();
+    observer.observe(section);
+    
+    // Первоначальная проверка видимости
+    const initialRect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    if (initialRect.top < windowHeight && initialRect.bottom > 0 && !isComplete) {
+      isActive = true;
+      updateAnimation();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', calculatePositions, { passive: true });
+    }
+    
+    // Очистка при удалении элемента
+    window.addEventListener('beforeunload', () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', calculatePositions);
+      if (rafId) cancelAnimationFrame(rafId);
+    });
+  })();
+</script>
