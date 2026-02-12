@@ -174,9 +174,13 @@ const casesItems = [
   text-align: center;
   margin-bottom: 4rem;
   font-weight: bold;
-  font-size: 2rem;
   margin-top: 5rem;
+  font-size: var(--text-3xl);
   
+  
+  @media (min-width: 768px) {
+    font-size: var(--text-5xl);;
+  }
   @media (min-width: 768px) {
     font-size: 3.75rem;
   }

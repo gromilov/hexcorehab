@@ -1,15 +1,20 @@
 ---
 import Button from './UI/Button.astro';
+const {
+  title,
+  text
+} = Astro.props
 ---
 
 <section class="hero">
   <div class="hero__container">
     <div class="hero__content">
       <h1 class="hero__title">
-        Разработка ИИ решений для бизнеса
+        {title}
+        
       </h1>
       <p class="hero__description">
-        Автоматизируйте бизнес-процессы с помощью наших ИИ-агентов
+        {text}
       </p>
       <div class="hero__actions">
         <Button className="open-form" >ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ</Button>

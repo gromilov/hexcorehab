@@ -2,26 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Team from '../components/Team.astro';
 import Result from '../components/Result.astro';
 import Steps from '../components/Steps.astro';
 import FAQ from '../components/FAQ.astro';
-import BusinessSectors from '../components/BusinessSectors.astro';
 import Footer from '../components/Footer.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import Dashboard from '../components/Dashboard.astro';
-import Auto from '../components/Auto.astro';
-import AutoMobile from '../components/AutoMobile.astro';
 import Carousel from '../components/Carousel.astro';
 import Banner from '../components/Banner.astro';
-import OurSolutions from '../components/OurSolutions.astro';
 import Cases from '../components/Cases.astro';
 import Contact from '../components/Contact.astro';
 import Modal from '../components/UI/Modal.astro';
 import Form from '../components/Form.astro';
-import Tools from '../components/Tools.astro';
 import Review from '../components/Review.astro';
-//  Контент 
+import ServicesPage from '../components/ServicesPage.astro';
 
 const itemsReview = [
   {
@@ -58,24 +52,18 @@ const itemsReview = [
   <div class="max-w-[100%] overflow-x-hidden relative"> <!-- Отступ для фиксированного меню -->
     <Header />
     <Hero 
-      title='Разработка ИИ решений для бизнеса' 
-      text='Автоматизируйте бизнес-процессы с помощью наших ИИ-агентов'
+      title='ИИ-ассистенты для управления проектами и процессами' 
+      text='Встраивание AI-помощников в корпоративные системы для анализа эффективности рабочих процессов, выявления узких мест, автоматического создания задач и формирования отчетов.'
     />
     <ProcessSteps />
-    <OurSolutions />
-    <Auto />
-    <AutoMobile />
+    <ServicesPage />
+    <Cases />
+    <Banner title='Начните с малого - внедрите<br> ИИ-агента в один процесс!' />
+    <Steps />
+    <Result />
     <Banner 
       title='Готовы автоматизировать бизнес <br> с помощью ИИ-агентов?'
     />
-    <BusinessSectors />
-    <Steps />
-    <Result />
-    <Banner title='Начните с малого - внедрите<br> ИИ-агента в один процесс!' />
-    <Dashboard />
-    <Team />
-    <Banner title='Обсудим ваш проект? <br> Напишите нам в телеграм!' />
-    <Tools />
     <Carousel title="Отзывы">
       {itemsReview.map((item, index) => (
         <div class="swiper-slide">
@@ -83,17 +71,14 @@ const itemsReview = [
         </div>
       ))}
     </Carousel>
+    <Dashboard />
     <Banner title='Выведите бизнес на новый <br> уровень эффективности!' />
-    <Cases />
     <FAQ />
     <Contact />
     <Footer />
     <Modal id="formModal">
       <Form />
     </Modal>
-    <!-- <Form  id="privacy-policy">
-      <PrivacyPolicy />
-    </Form> -->
   </div>
 </Layout>
 

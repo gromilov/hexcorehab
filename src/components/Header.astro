@@ -3,9 +3,9 @@ import Button from './UI/Button.astro';
 
 // Данные для меню
 const menuItems = [
-  { id: 'benefits', title: 'Услуги' },
-  { id: 'calculation', title: 'Кейсы' },
-  { id: 'process', title: 'Контакты' },
+  { id: 'benefits', title: 'Услуги', link: "/services.html" },
+  { id: 'calculation', title: 'Кейсы', link: "/cases.html" },
+  { id: 'process', title: 'Контакты', link: "/contacts.html" },
 ];
 ---
 
@@ -29,7 +29,7 @@ const menuItems = [
       <nav class="header__desktop-nav">
         {menuItems.map(item => (
           <a 
-            href={`#${item.id}`} 
+            href={`${item.link}`}
             class="header__nav-link"
           >
             {item.title}

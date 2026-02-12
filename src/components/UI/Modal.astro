@@ -43,7 +43,7 @@ const { id, title, closeButton = true } = Astro.props;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 20px;
+  padding: 12px;
 }
 
 .modal-content {
@@ -102,21 +102,21 @@ const { id, title, closeButton = true } = Astro.props;
 
 /* Адаптивность */
 @media (max-width: 768px) {
-  .modal-content {
+  /* .modal-content {
     padding: 24px;
     margin: 20px;
-  }
+  } */
   
-  .modal-title {
-    font-size: 20px;
+  .modal-contact-form-title {
+    font-size: 20px !important;
   }
 }
 
 @media (max-width: 480px) {
-  .modal-content {
+  /* .modal-content {
     padding: 20px;
     margin: 10px;
-  }
+  } */
   
   .modal-header {
     padding-right: 30px;
